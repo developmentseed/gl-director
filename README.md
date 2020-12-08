@@ -1,6 +1,8 @@
-# Mapbox camera sandbox
+# Mapbox GL Director
 
-Experiments with the new version of mapbox
+An interface to easily generate terrain flyovers for your app using [Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js/)
+
+![main view of the application showing 3d map and user inputs](images/app.png)
 
 ## Installation and Usage
 
