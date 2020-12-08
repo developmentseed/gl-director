@@ -1,0 +1,7 @@
+{
+  "prettier.eslintIntegration": true,
+  "prettier.stylelintIntegration": true,
+  "css.validate": false,
+  "scss.validate": false,
+  "stylelint.enable": true
+}

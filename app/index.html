@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
+
+    <link rel='icon' type='image/png' sizes='96x96' href='{{baseurl}}/assets/graphics/meta/favicon.png' />
+    <link rel='icon' type='image/png' sizes='192x192' href='{{baseurl}}/assets/graphics/meta/android-chrome.png' />
+    <link rel='apple-touch-icon' sizes='180x180' href='{{baseurl}}/assets/graphics/meta/apple-touch-icon.png' />
+
+    <title>{{appTitle}}</title>
+    <meta name='description' content='{{appDescription}}' />
+
+    <meta name='twitter:card' content='summary' />
+    <meta name='twitter:site' content='' />
+    <meta name='twitter:title' content='{{appTitle}}' />
+    <meta name='twitter:description' content='{{appDescription}}' />
+    <meta name='twitter:image:src' content='{{baseurl}}/assets/graphics/meta/default-meta-image.png' />
+
+    <meta property='og:type' content='website' />
+    <meta property='og:url' content='{{baseurl}}' />
+    <meta property='og:site_name' content='{{appTitle}}' />
+    <meta property='og:title' content='{{appTitle}}' />
+    <meta property='og:image' content='{{baseurl}}/assets/graphics/meta/default-meta-image.png' />
+    <meta property='og:description' content='{{appDescription}}' />
+
+    <!-- build:css /assets/styles/vendor.css -->
+    <link rel='stylesheet' href='/assets/scripts/mapbox-gl.css' />
+    <link rel="stylesheet" href="/node_modules/react-input-range/lib/css/input-range/input-range.css" />
+    <!-- endbuild -->
+
+    <link rel='author' type='text/plain' href='humans.txt' />
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap' />
+
+    <style>
+      #welcome-banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 100;
+        background: #fff;
+        margin: 0;
+        padding: 1rem;
+        font-family: sans-serif;
+        font-size: 1rem;
+
+        transition: all 320ms ease-in-out;
+      }
+      #welcome-banner.dismissed {
+        opacity: 0;
+        visibility: hidden;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Welcome banner gets hidden by React -->
+    <div id='welcome-banner'>
+      <!-- 
+        To avoid an abrupt transition when the app loads, this banner is
+        transitioned out. Replace the contents with something appropriate
+        for the project.
+      -->
+      <p>Loading application<p>
+    </div>
+
+    <div id='app-container'>
+      <!-- Content rendered here via React -->
+    </div>
+
+    <script>
+      // https://stackoverflow.com/a/9851769/728583
+
+      // internet explorer 6-11
+      var isIE = /*@cc_on!@*/ false || !!document.documentMode;
+
+      if (isIE) {
+        document.body.innerHTML =
+          'Unfortunately, your browser is not currently supported.<br />Recommended browsers: Edge, Firefox, Safari, Chrome';
+      }
+    </script>
+
+    <!-- build:js /assets/scripts/vendor.js -->
+    <script src='/assets/scripts/mapbox-gl.js'></script>
+    <script src='/assets/scripts/vendor.js'></script>
+    <!-- endbuild -->
+    <!-- build:js /assets/scripts/bundle.js -->
+    <script src='/assets/scripts/bundle.js'></script>
+    <!-- endbuild -->
+  </body>
+</html>

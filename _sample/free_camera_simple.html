@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapbox GL JS debug page</title>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script src='mapbox-gl.js'></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        html, body, #map { height: 100%; }
+
+        #checkboxes {
+            position: absolute;
+            background: #fff;
+            top:0;
+            left:0;
+            padding:10px;
+        }
+    </style>
+</head>
+
+<body>
+<div id='map'></div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoia25hYWppIiwiYSI6Il9zaDktSnMifQ.gQBedLe-gjrCq4LEXU3O9w';
+
+var map = window.map = new mapboxgl.Map({
+    container: 'map',
+    zoom: 11.53,
+    center: [138.7189, 35.1691],
+    pitch: 76,
+    bearing: -177.2,
+    style: 'mapbox://styles/mapbox/satellite-v9',
+    hash: true,
+    interactive: false
+});
+
+let animationTime = 0.0;
+
+map.on('style.load', function() {
+    map.addSource('mapbox-dem', {
+        "type": "raster-dem",
+        "url": "mapbox://mapbox.terrain-rgb",
+        "tileSize": 512,
+        "maxzoom": 14
+    });
+    map.setTerrain({"source": "mapbox-dem", "exaggeration": 1.5});
+    map.addLayer({
+        'id': 'sky',
+        'type': 'sky',
+        'paint': {
+            'sky-type': 'atmosphere',
+            'sky-atmosphere-sun': [0.0, 20.0],
+            'sky-atmosphere-sun-intensity': 15,
+        }
+    });
+
+    map.setPaintProperty('satellite', 'raster-fade-duration', 0);
+    map.on('idle', function() {
+        setInterval(() => {
+            const interpolate = (a, b, t) => {
+                if (Array.isArray(a) && Array.isArray(b)) {
+                    const result = [];
+                    for (let i = 0; i < Math.min(a.length, b.length); i++)
+                        result[i] = a[i] * (1.0 - t) + b[i] * t;
+                    return result;
+                } else {
+                    return a * (1.0 - t) + b * t;
+                }
+            };
+
+            const duration = 500.0;
+            if (animationTime < duration) {
+
+                const start = [138.73375, 35.41914];
+                const end = [138.72649, 35.33974];
+                const alt = [7000.0, 6000.0];
+                const target = [138.73036, 35.36197];
+
+                const camera = map.getFreeCameraOptions();
+
+                const position = interpolate(start, end, animationTime / duration);
+                const altitude = interpolate(alt[0], alt[1], animationTime / duration);
+                camera.position = mapboxgl.MercatorCoordinate.fromLngLat(position, altitude);
+                camera.lookAtPoint(target);
+
+                map.setFreeCameraOptions(camera);
+            }
+
+            animationTime += 1.0 / 60;
+
+            if (animationTime > duration) {
+                animationTime = 0.0;
+            }
+        }, 1000.0 / 60.0);
+    });
+});
+
+</script>
+</body>
+</html>
