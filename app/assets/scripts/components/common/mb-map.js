@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';
+import mapboxgl from 'mapbox-gl';
 
 import config from '../../config';
 import { glsp } from '../../styles/utils/theme-values';
@@ -8,8 +9,6 @@ import { mapStyles } from '../../utils/constants';
 import { useMapboxControl } from './mapbox-react-control';
 
 import StyleControlDropdown from './map-style-control';
-
-const mapboxgl = window.mapboxgl;
 
 // Set mapbox token.
 mapboxgl.accessToken = config.mbToken;
@@ -63,9 +62,10 @@ const MbMap = React.forwardRef((props, ref) => {
       container: mapContainer.current,
       style: style.url,
       logoPosition: 'bottom-left',
-      zoom: 17,
-      center: [-122.019807, 45.632433],
-      pitch: 75,
+      zoom: 13,
+      center: [-25.75974990820663, 37.85838746294672],
+      pitch: 73.37724,
+      bearing: 127.53,
       preserveDrawingBuffer: true
     });
     window.ma = ref.current = mbMap;
