@@ -91,7 +91,7 @@ const PageNav = styled.nav`
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
-  background: ${themeVal('color.silk')};
+  background: ${themeVal('color.silkLight')};
   transition: all 0.16s ease 0s;
   opacity: 0;
   visibility: hidden;

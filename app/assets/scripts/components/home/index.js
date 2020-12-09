@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import mapboxgl from 'mapbox-gl';
 
 import App from '../common/app';
 import {
@@ -19,8 +20,6 @@ import MapMessage from '../common/map-message';
 import ExamplesModal from './example-modal';
 import { animate, getAnimationValues, lerp } from '../../utils/animate';
 import { mapStyles } from '../../utils/constants';
-
-const mapboxgl = window.mapboxgl;
 
 const ExploreCanvas = styled.div`
   display: grid;
