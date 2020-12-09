@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';
+import mapboxgl from 'mapbox-gl';
 
 import config from '../../config';
 import { glsp } from '../../styles/utils/theme-values';
@@ -8,8 +9,6 @@ import { mapStyles } from '../../utils/constants';
 import { useMapboxControl } from './mapbox-react-control';
 
 import StyleControlDropdown from './map-style-control';
-
-const mapboxgl = window.mapboxgl;
 
 // Set mapbox token.
 mapboxgl.accessToken = config.mbToken;
