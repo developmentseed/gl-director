@@ -9,8 +9,8 @@ export const compileExport = ({
   <title>Mapbox GL JS</title>
   <meta charset='utf-8'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <link rel='stylesheet' href='../app/assets/scripts/mapbox-gl.css' />
-  <script src='../app/assets/scripts/mapbox-gl.js'></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js"></script>
   <style>
     body { margin: 0; padding: 0; }
     html, body, #map { height: 100%; }
