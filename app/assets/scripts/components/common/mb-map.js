@@ -63,9 +63,10 @@ const MbMap = React.forwardRef((props, ref) => {
       container: mapContainer.current,
       style: style.url,
       logoPosition: 'bottom-left',
-      zoom: 17,
-      center: [-122.019807, 45.632433],
-      pitch: 75,
+      zoom: 13,
+      center: [-25.75974990820663, 37.85838746294672],
+      pitch: 73.37724,
+      bearing: 127.53,
       preserveDrawingBuffer: true
     });
     window.ma = ref.current = mbMap;
