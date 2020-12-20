@@ -126,7 +126,7 @@ function PageFooter() {
             <dd>
               <Button
                 forwardedAs='a'
-                href='https://github.com/'
+                href='https://github.com/developmentseed/gl-director'
                 title='Explore the code'
                 variation='base-plain'
                 size='small'
