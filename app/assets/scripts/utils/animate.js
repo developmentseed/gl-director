@@ -65,11 +65,13 @@ export const getAnimationValues = (cameraPos) => {
   const {
     position,
     target,
-    settings: { exaggeration, sunAltitude, sunAzimuth, sunHalo, sunAtmosphere }
+    settings: { exaggeration, sunAltitude, sunAzimuth, sunHalo, sunAtmosphere },
+    targetElevation
   } = cameraPos;
 
   return {
     position,
+    targetElevation,
     target,
     exaggeration,
     sunAltitude,

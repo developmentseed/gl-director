@@ -95,19 +95,8 @@ function Home() {
   useEffect(() => {
     if (cameraPos.length < 2) return;
 
-    const addElevation = (v) => {
-      const m = mapboxMapRef.current;
-      const camera = m.getFreeCameraOptions();
-      return {
-        ...v,
-        elevation: camera._elevation.getAtPoint(
-          mapboxgl.MercatorCoordinate.fromLngLat(v.target)
-        )
-      };
-    };
-
-    const cStart = addElevation(getAnimationValues(cameraPos[0]));
-    const cEnd = addElevation(getAnimationValues(cameraPos[1]));
+    const cStart = getAnimationValues(cameraPos[0]);
+    const cEnd = getAnimationValues(cameraPos[1]);
 
     cameraAnimationRef.current = animate([
       {
@@ -127,7 +116,7 @@ function Home() {
             sunAzimuth,
             sunHalo: [hR, hG, hB, hA],
             sunAtmosphere: [aR, aG, aB, aA],
-            elevation
+            targetElevation
           } = values;
 
           const m = mapboxMapRef.current;
@@ -140,7 +129,7 @@ function Home() {
           // peaks and troughs. Override the method during enough time to get
           // the new value.
           const originalGetAtPoint = camera._elevation.getAtPoint;
-          camera._elevation.getAtPoint = () => elevation;
+          camera._elevation.getAtPoint = () => targetElevation;
           camera.lookAtPoint(target);
           // Restore to former glory.
           camera._elevation.getAtPoint = originalGetAtPoint;
@@ -186,6 +175,9 @@ function Home() {
     const { x, y, z } = camera.position;
     const orientation = camera.orientation;
     const target = m.getCenter().toArray();
+    const targetElevation = camera._elevation.getAtPoint(
+      mapboxgl.MercatorCoordinate.fromLngLat(target)
+    );
 
     const image = getResizedImage(m.getCanvas(), 320);
 
@@ -193,6 +185,7 @@ function Home() {
       position: [x, y, z],
       orientation,
       target,
+      targetElevation,
       image
     };
   };

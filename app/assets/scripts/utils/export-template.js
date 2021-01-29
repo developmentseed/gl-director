@@ -90,6 +90,7 @@ export const compileExport = ({
       const start = {
         position: [${start.position.join(', ')}],
         target: [${start.target.join(', ')}],
+        targetElevation: ${start.targetElevation},
         exaggeration: ${start.exaggeration},
         sunAltitude: ${start.sunAltitude},
         sunAzimuth: ${start.sunAzimuth},
@@ -99,6 +100,7 @@ export const compileExport = ({
       const end = {
         position: [${end.position.join(', ')}],
         target: [${end.target.join(', ')}],
+        targetElevation: ${end.targetElevation},
         exaggeration: ${end.exaggeration},
         sunAltitude: ${end.sunAltitude},
         sunAzimuth: ${end.sunAzimuth},
@@ -110,6 +112,7 @@ export const compileExport = ({
         const {
           position,
           target,
+          targetElevation,
           exaggeration,
           sunAltitude,
           sunAzimuth,
@@ -120,7 +123,23 @@ export const compileExport = ({
         const camera = map.getFreeCameraOptions();
 
         camera.position = new mapboxgl.MercatorCoordinate(position[0], position[1], position[2]);
+
+        // The lookAtPoint method takes the point's altitude into account
+        // resulting in a bumpy camera movement as the target goes through
+        // peaks and troughs. Override the method during enough time to get
+        // the new value.
+        // This will likely be solved when elevation api is exposed: https://github.com/mapbox/mapbox-gl-js/issues/10318
+        // The elevation data takes a bit to load, therefore it needs a check.
+        let originalGetAtPoint = null;
+        if (camera._elevation) {
+          originalGetAtPoint = camera._elevation.getAtPoint;
+          camera._elevation.getAtPoint = () => targetElevation;
+        }
         camera.lookAtPoint(target);
+        // Restore to former glory.
+        if (camera._elevation) {
+          camera._elevation.getAtPoint = originalGetAtPoint;
+        }
 
         map.setFreeCameraOptions(camera);
         map.setTerrain({
