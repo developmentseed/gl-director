@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';
 import mapboxgl from 'mapbox-gl';
+import { saveAs } from 'file-saver';
 
 import config from '../../config';
 import { glsp } from '../../styles/utils/theme-values';
@@ -38,11 +39,10 @@ const MbMap = React.forwardRef((props, ref) => {
     helperTarget,
     settings,
     onAction,
-    mapStyleId
+    mapStyleId,
+    isLoaded
   } = props;
   const mapContainer = useRef(null);
-
-  const [isLoaded, setLoaded] = useState(false);
 
   const mapStyleControl = useMapboxControl(() => {
     return (
@@ -108,7 +108,7 @@ const MbMap = React.forwardRef((props, ref) => {
         mbMap.setPaintProperty('satellite', 'raster-fade-duration', 0);
       }
 
-      setLoaded(true);
+      onAction('map.load');
     });
 
     return () => {
@@ -170,7 +170,8 @@ MbMap.propTypes = {
     sunAtmosphereIntensity: T.number
   }),
   onAction: T.func,
-  mapStyleId: T.string
+  mapStyleId: T.string,
+  isLoaded: T.bool
 };
 
 export default MbMap;

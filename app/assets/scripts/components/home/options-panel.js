@@ -11,6 +11,7 @@ import ShadowScrollbar from '../common/shadow-scrollbar';
 import Button from '../../styles/button/button';
 import { ExportPaneBody, ExportPaneFooter } from './export-pane';
 import { CreatePaneBody, CreatePaneFooter } from './create-pane';
+import { VideoPaneBody, VideoPaneFooter } from './video-pane';
 
 const PanelSelf = styled(Panel)`
   ${media.largeUp`
@@ -92,6 +93,10 @@ const tabs = [
   {
     id: 'export',
     label: 'Export'
+  },
+  {
+    id: 'video',
+    label: 'Video'
   }
 ];
 
@@ -104,7 +109,8 @@ function OptionsPanel(props) {
     isAnimating,
     target,
     isSelectingTarget,
-    onAction
+    onAction,
+    mediaRecorder
   } = props;
 
   const [activeTab, setActiveTab] = useState('create');
@@ -168,6 +174,11 @@ function OptionsPanel(props) {
                 scenes={cameraPositions}
               />
             )}
+            {activeTab === 'video' && (
+              <VideoPaneBody mediaRecorder={mediaRecorder} scenes={cameraPositions}/>
+            )
+
+            }
           </BodyScrollInner>
         </BodyScroll>
       }
@@ -178,9 +189,14 @@ function OptionsPanel(props) {
             onAction={onAction}
             isAnimating={isAnimating}
           />
-        ) : (
+        ) : activeTab === 'export' ? (
           <ExportPaneFooter scenes={cameraPositions} onAction={onAction} />
-        )
+        ) : <VideoPaneFooter
+          isAnimating={isAnimating}
+          scenes={cameraPositions}
+          onAction={onAction}
+          mediaRecorder={mediaRecorder}
+        />
       }
     />
   );
@@ -194,7 +210,8 @@ OptionsPanel.propTypes = {
   onAction: T.func,
   onPanelChange: T.func,
   isAnimating: T.bool,
-  cameraPositions: T.array
+  cameraPositions: T.array,
+  mediaRecorder: T.object
 };
 
 export default OptionsPanel;

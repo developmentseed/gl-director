@@ -92,6 +92,10 @@ function Home() {
     mapStyles.find((v) => v.initial).id
   );
 
+  const [isLoaded, setMapLoaded] = useState(null)
+
+  const [mediaRecorder, setMediaRecorder] = useState(null)
+
   useEffect(() => {
     if (cameraPos.length < 2) return;
 
@@ -280,14 +284,37 @@ function Home() {
       case 'style.set':
         setMapStyleId(payload.styleId);
         break;
-    }
-    switch (action) {
       case 'target.set':
         setIsSelectingHelperTarget(false);
         setHelperTarget(payload.point);
         break;
+      case 'map.load':
+        setMapLoaded(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+    if (!mapboxMapRef.current) return;
+    // video export setup; move to video pane for option/settings control
+    const canvas = mapboxMapRef.current.getCanvas();
+    const video = document.querySelector("video");
+    const videoStream = canvas.captureStream(20);
+    const mediaRecorderTemp = new MediaRecorder(videoStream);
+    let chunks = [];
+    mediaRecorderTemp.ondataavailable = function(e) {
+      chunks.push(e.data);
+    };
+
+    mediaRecorderTemp.onstop = function(e) {
+      const blob = new Blob(chunks, { 'type' : 'video/mp4; codecs="avc1.4d002a"' });
+      chunks = [];
+      const videoURL = URL.createObjectURL(blob);
+      video.src = videoURL;
+      saveAs(blob, "Director.mp4");
+    };
+    setMediaRecorder(mediaRecorderTemp)
+  }, [isLoaded])
 
   const onExampleSelect = (ex) => {
     // Custom
@@ -324,6 +351,7 @@ function Home() {
                 helperTarget={helperTarget}
                 settings={settings}
                 mapStyleId={mapStyleId}
+                isLoaded={isLoaded}
               />
             </ExploreCarto>
             <OptionsPanel
@@ -337,7 +365,7 @@ function Home() {
               target={helperTarget}
               isSelectingTarget={isSelectingHelperTarget}
               cameraPositions={cameraPos}
-              map={mapboxMapRef}
+              mediaRecorder={mediaRecorder || {}}
               settings={settings}
             />
           </ExploreCanvas>
