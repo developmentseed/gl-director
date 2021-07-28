@@ -24,5 +24,10 @@ export const mapStyles = [
     label: 'Satellite',
     url: 'mapbox://styles/mapbox/satellite-v9',
     initial: true
+  },
+  {
+    id: 'custom',
+    label: 'Custom',
+    url: null
   }
 ];

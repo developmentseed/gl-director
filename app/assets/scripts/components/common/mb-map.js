@@ -38,7 +38,8 @@ const MbMap = React.forwardRef((props, ref) => {
     helperTarget,
     settings,
     onAction,
-    mapStyleId
+    mapStyleId,
+    customMapUrl
   } = props;
   const mapContainer = useRef(null);
 
@@ -50,6 +51,7 @@ const MbMap = React.forwardRef((props, ref) => {
         styles={mapStyles}
         activeStyleId={mapStyleId}
         onChange={(styleId) => onAction('style.set', { styleId })}
+        onInputChange={(url) => onAction('customurl.set', { url })}
       />
     );
   }, [mapStyleId, onAction]);
@@ -117,7 +119,7 @@ const MbMap = React.forwardRef((props, ref) => {
   }, [ref]);
 
   // Update style
-  useMapStyle(ref, mapStyleId);
+  useMapStyle(ref, mapStyleId, customMapUrl);
 
   useEffect(() => {
     const mbMap = ref.current;
@@ -170,7 +172,8 @@ MbMap.propTypes = {
     sunAtmosphereIntensity: T.number
   }),
   onAction: T.func,
-  mapStyleId: T.string
+  mapStyleId: T.string,
+  customMapUrl: T.string
 };
 
 export default MbMap;
@@ -213,7 +216,7 @@ const useMapSettings = (ref, isLoaded, settings) => {
   }, [mbMap, isLoaded, sunAtmosphere]);
 };
 
-const useMapStyle = (ref, mapStyleId) => {
+const useMapStyle = (ref, mapStyleId, customMapUrl) => {
   // We only want to allow change styles once the map is mounted.
   const isMounted = useRef(false);
 
@@ -223,10 +226,12 @@ const useMapStyle = (ref, mapStyleId) => {
     const mbMap = ref.current;
 
     if (mbMap) {
-      const style = mapStyles.find((v) => v.id === mapStyleId);
+      const style = mapStyleId == 'custom'
+      ? { url: customMapUrl }
+      : mapStyles.find((v) => v.id === mapStyleId);
       mbMap.setStyle(style.url);
     }
-  }, [ref, mapStyleId]);
+  }, [ref, mapStyleId, customMapUrl]);
 
   useEffect(() => {
     isMounted.current = true;

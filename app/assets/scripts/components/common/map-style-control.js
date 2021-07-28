@@ -69,7 +69,7 @@ const LayersButton = styled(Button)`
 // It is disconnected from the global state because it needs to be included
 // via the mapbox code.
 function StyleControlDropdown(props) {
-  const { styles, activeStyleId, onChange } = props;
+  const { styles, activeStyleId, onChange, onInputChange } = props;
 
   return (
     <Dropdown
@@ -99,6 +99,11 @@ function StyleControlDropdown(props) {
               >
                 {style.label}
               </LayerSwitch>
+              <input
+                onChange={event => onInputChange(event.target.value)}
+                style={{ display: (style.id == 'custom' ? 'inline-block' : 'none') }}
+                placeholder="Insert style.json here"
+                /> 
             </li>
           );
         })}
@@ -110,7 +115,8 @@ function StyleControlDropdown(props) {
 StyleControlDropdown.propTypes = {
   styles: T.array,
   activeStyleId: T.string,
-  onChange: T.func
+  onChange: T.func,
+  onInputChange: T.func
 };
 
 export default StyleControlDropdown;
