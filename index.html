@@ -68,6 +68,14 @@
         opacity: 0;
         visibility: hidden;
       }
+      #video {
+        position: absolute;
+        width: 1200px;
+        height: 900px;
+        z-index: 1;
+        background-color: #000000;
+        display: none;
+      }
     </style>
   </head>
 
@@ -85,6 +93,7 @@
     <div id='app-container'>
       <!-- Content rendered here via React -->
     </div>
+    <video id="video" controls autoplay muted></video>
 
     <script>
       // https://stackoverflow.com/a/9851769/728583
@@ -99,6 +108,6 @@
     </script>
 
     <script src="https://developmentseed.org/gl-director/assets/scripts/vendor-6bb734b0ef.js"></script>
-    <script src="https://developmentseed.org/gl-director/assets/scripts/bundle-a8a0121d2a.js"></script>
+    <script src="https://developmentseed.org/gl-director/assets/scripts/bundle-4155ebb7a8.js"></script>
   </body>
 </html>
