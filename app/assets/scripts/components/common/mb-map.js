@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';
 import mapboxgl from 'mapbox-gl';
+import { saveAs } from 'file-saver';
 
 import config from '../../config';
 import { glsp } from '../../styles/utils/theme-values';
