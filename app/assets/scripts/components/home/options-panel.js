@@ -113,8 +113,7 @@ function OptionsPanel(props) {
     mapboxMapRef,
     mediaRecorder,
     format,
-    codec,
-    downloadName
+    codec
   } = props;
 
   const [activeTab, setActiveTab] = useState('create');
@@ -186,11 +185,8 @@ function OptionsPanel(props) {
                 onAction={onAction}
                 codec={codec}
                 format={format}
-                downloadName={downloadName}
-                />
-            )
-
-            }
+              />
+            )}
           </BodyScrollInner>
         </BodyScroll>
       }
@@ -203,16 +199,17 @@ function OptionsPanel(props) {
           />
         ) : activeTab === 'export' ? (
           <ExportPaneFooter scenes={cameraPositions} onAction={onAction} />
-        ) : <VideoPaneFooter
-          isAnimating={isAnimating}
-          scenes={cameraPositions}
-          onAction={onAction}
-          mapboxMapRef={mapboxMapRef}
-          mediaRecorder={mediaRecorder}
-          codec={codec}
-          format={format}
-          downloadName={downloadName}
-        />
+        ) : (
+          <VideoPaneFooter
+            isAnimating={isAnimating}
+            scenes={cameraPositions}
+            onAction={onAction}
+            mapboxMapRef={mapboxMapRef}
+            mediaRecorder={mediaRecorder}
+            codec={codec}
+            format={format}
+          />
+        )
       }
     />
   );
@@ -229,7 +226,6 @@ OptionsPanel.propTypes = {
   cameraPositions: T.array,
   mapboxMapRef: T.object,
   mediaRecorder: T.object,
-  downloadName: T.string,
   codec: T.string,
   format: T.string
 };

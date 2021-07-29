@@ -95,7 +95,6 @@ function Home() {
   const [mediaRecorder, setMediaRecorder] = useState({});
   const [codec, setCodec] = useState('avc1.4d002a');
   const [format, setFormat] = useState('mp4');
-  const [downloadName, setDownloadName] = useState('DirectorExport');
 
   useEffect(() => {
     if (cameraPos.length < 2) return;
@@ -278,9 +277,6 @@ function Home() {
         case 'video.set.mediarecorder':
           setMediaRecorder(payload);
           break;
-        case 'video.set.download':
-          setDownloadName(payload);
-          break;
         case 'video.set.codec':
           setCodec(payload);
           break;
@@ -357,7 +353,6 @@ function Home() {
               mediaRecorder={mediaRecorder}
               codec={codec}
               format={format}
-              downloadName={downloadName}
             />
           </ExploreCanvas>
         </InpageBody>

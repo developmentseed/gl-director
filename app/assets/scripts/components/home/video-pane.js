@@ -3,8 +3,6 @@ import T from 'prop-types';
 import { saveAs } from 'file-saver';
 import styled from 'styled-components';
 
-import { glsp } from '../../styles/utils/theme-values';
-import { themeVal } from '../../styles/utils/general';
 import Form from '../../styles/form/form';
 import {
   FormGroup,
@@ -13,8 +11,10 @@ import {
 } from '../../styles/form/group';
 import { FormHelper, FormHelperMessage } from '../../styles/form/helper';
 import FormLabel from '../../styles/form/label';
-import FormInput from '../../styles/form/input';
 import FormSelect from '../../styles/form/select';
+
+import { glsp } from '../../styles/utils/theme-values';
+import { themeVal } from '../../styles/utils/general';
 import { headingAlt } from '../../styles/type/heading';
 
 import Button from '../../styles/button/button';
@@ -42,18 +42,13 @@ const PanelSectionTitle = styled.h2`
 const VideoForm = styled(Form)`
   grid-template-columns: repeat(2, 1fr);
   grid-gap: ${glsp(0.5, 1)};
-
-  > *:nth-of-type(4),
-  > *:nth-of-type(5) {
-    grid-row: 3;
-  }
 `;
 
 // one global for speed
 let chunks = [];
 
 export function VideoPaneBody(props) {
-  const { scenes, mapboxMapRef, onAction, downloadName, codec, format } = props;
+  const { scenes, mapboxMapRef, onAction, codec, format } = props;
 
   const [frameRate, setFrameRate] = useState(29.97);
   const [size, setSize] = useState('800x600');
@@ -82,140 +77,108 @@ export function VideoPaneBody(props) {
   }
 
   return (
-    <div>
+    <PanelSection>
+      <PanelSectionTitle>Recording Settings</PanelSectionTitle>
       <p>
         Keep this pane open to create and export recordings. Note that screen
         size, browser, and computer characteristics can affect video output
         quality
       </p>
-      <React.Fragment>
-        <PanelSection>
-          <PanelSectionTitle>Recording Settings</PanelSectionTitle>
-          <VideoForm>
-            <FormGroup>
-              <FormGroupHeader>
-                <FormLabel htmlFor='frame-rate'>Frame Rate</FormLabel>
-              </FormGroupHeader>
-              <FormGroupBody>
-                <FormSelect
-                  type='text'
-                  size='large'
-                  id='frame-rate'
-                  value={frameRate}
-                  onChange={(e) => {
-                    setFrameRate(e.target.value);
-                  }}
-                >
-                  {frameRates.map((fr) => {
-                    return <option key={fr}>{fr}</option>;
-                  })}
-                </FormSelect>
-                <FormHelper>
-                  <FormHelperMessage>Set the recording fps.</FormHelperMessage>
-                </FormHelper>
-              </FormGroupBody>
-            </FormGroup>
-            <FormGroup>
-              <FormGroupHeader>
-                <FormLabel htmlFor='size'>Video Size</FormLabel>
-              </FormGroupHeader>
-              <FormGroupBody>
-                <FormSelect
-                  type='text'
-                  size='large'
-                  id='size'
-                  value={size}
-                  onChange={(e) => {
-                    setSize(e.target.value);
-                  }}
-                >
-                  {sizes.map((sz) => {
-                    return <option key={sz}>{sz}</option>;
-                  })}
-                </FormSelect>
-                <FormHelper>
-                  <FormHelperMessage>Set the recording size.</FormHelperMessage>
-                </FormHelper>
-              </FormGroupBody>
-            </FormGroup>
-          </VideoForm>
-        </PanelSection>
-        <PanelSection>
-          <PanelSectionTitle>Export Settings</PanelSectionTitle>
-          <Form>
-            <FormGroup>
-              <FormGroupHeader>
-                <FormLabel htmlFor='download-name'>Download Name</FormLabel>
-              </FormGroupHeader>
-              <FormGroupBody>
-                <FormInput
-                  type='text'
-                  size='large'
-                  id='download-name'
-                  value={downloadName}
-                  onChange={(e) => {
-                    onAction('video.set.download', e.target.value);
-                  }}
-                />
-                <FormHelper>
-                  <FormHelperMessage>
-                    Name of the exported file.
-                  </FormHelperMessage>
-                </FormHelper>
-              </FormGroupBody>
-            </FormGroup>
-          </Form>
-          <VideoForm>
-            <FormGroup>
-              <FormGroupHeader>
-                <FormLabel htmlFor='format'>Format</FormLabel>
-              </FormGroupHeader>
-              <FormGroupBody>
-                <FormSelect
-                  type='text'
-                  size='large'
-                  id='format'
-                  value={format}
-                  onChange={(e) => {
-                    onAction('video.set.format', e.target.value);
-                  }}
-                >
-                  {formats.map((fr) => {
-                    return <option key={fr}>{fr}</option>;
-                  })}
-                </FormSelect>
-                <FormHelper>
-                  <FormHelperMessage>Set the export format.</FormHelperMessage>
-                </FormHelper>
-              </FormGroupBody>
-            </FormGroup>
-            <FormGroup>
-              <FormGroupHeader>
-                <FormLabel htmlFor='codec'>Codec</FormLabel>
-              </FormGroupHeader>
-              <FormGroupBody>
-                <FormSelect
-                  type='text'
-                  size='large'
-                  id='codec'
-                  value={codec}
-                  onChange={(e) => {
-                    onAction('video.set.codec', e.target.value);
-                  }}
-                >
-                  {codecs.map((cd) => {
-                    return <option key={cd}>{cd}</option>;
-                  })}
-                </FormSelect>
-                <FormHelper>
-                  <FormHelperMessage>Set the export codec.</FormHelperMessage>
-                </FormHelper>
-              </FormGroupBody>
-            </FormGroup>
-          </VideoForm>
-        </PanelSection>
-      </React.Fragment>
-    </div>
+      <VideoForm>
+        <FormGroup>
+          <FormGroupHeader>
+            <FormLabel htmlFor='frame-rate'>Frame Rate</FormLabel>
+          </FormGroupHeader>
+          <FormGroupBody>
+            <FormSelect
+              type='text'
+              size='large'
+              id='frame-rate'
+              value={frameRate}
+              onChange={(e) => {
+                setFrameRate(e.target.value);
+              }}
+            >
+              {frameRates.map((fr) => {
+                return <option key={fr}>{fr}</option>;
+              })}
+            </FormSelect>
+            <FormHelper>
+              <FormHelperMessage>Set the recording fps.</FormHelperMessage>
+            </FormHelper>
+          </FormGroupBody>
+        </FormGroup>
+        <FormGroup>
+          <FormGroupHeader>
+            <FormLabel htmlFor='size'>Video Size</FormLabel>
+          </FormGroupHeader>
+          <FormGroupBody>
+            <FormSelect
+              type='text'
+              size='large'
+              id='size'
+              value={size}
+              onChange={(e) => {
+                setSize(e.target.value);
+              }}
+            >
+              {sizes.map((sz) => {
+                return <option key={sz}>{sz}</option>;
+              })}
+            </FormSelect>
+            <FormHelper>
+              <FormHelperMessage>Set the recording size.</FormHelperMessage>
+            </FormHelper>
+          </FormGroupBody>
+        </FormGroup>
+        <FormGroup>
+          <FormGroupHeader>
+            <FormLabel htmlFor='format'>Format</FormLabel>
+          </FormGroupHeader>
+          <FormGroupBody>
+            <FormSelect
+              type='text'
+              size='large'
+              id='format'
+              value={format}
+              onChange={(e) => {
+                onAction('video.set.format', e.target.value);
+              }}
+            >
+              {formats.map((fr) => {
+                return <option key={fr}>{fr}</option>;
+              })}
+            </FormSelect>
+            <FormHelper>
+              <FormHelperMessage>Set the export format.</FormHelperMessage>
+            </FormHelper>
+          </FormGroupBody>
+        </FormGroup>
+        <FormGroup>
+          <FormGroupHeader>
+            <FormLabel htmlFor='codec'>Codec</FormLabel>
+          </FormGroupHeader>
+          <FormGroupBody>
+            <FormSelect
+              type='text'
+              size='large'
+              id='codec'
+              value={codec}
+              onChange={(e) => {
+                onAction('video.set.codec', e.target.value);
+              }}
+            >
+              {codecs.map((cd) => {
+                return <option key={cd}>{cd}</option>;
+              })}
+            </FormSelect>
+            <FormHelper>
+              <FormHelperMessage>Set the export codec.</FormHelperMessage>
+            </FormHelper>
+          </FormGroupBody>
+        </FormGroup>
+      </VideoForm>
+    </PanelSection>
   );
 }
 
@@ -223,21 +186,12 @@ VideoPaneBody.propTypes = {
   scenes: T.array,
   mapboxMapRef: T.object,
   onAction: T.func,
-  downloadName: T.string,
   codec: T.string,
   format: T.string
 };
 
 export function VideoPaneFooter(props) {
-  const {
-    scenes,
-    isAnimating,
-    onAction,
-    mediaRecorder,
-    format,
-    codec,
-    downloadName
-  } = props;
+  const { scenes, isAnimating, onAction, mediaRecorder, format, codec } = props;
 
   const onVideoClick = () => {
     if (isAnimating) {
@@ -250,7 +204,7 @@ export function VideoPaneFooter(props) {
         const video = document.querySelector('video');
         const videoURL = URL.createObjectURL(blob);
         video.src = videoURL;
-        saveAs(blob, `${downloadName}.${format}`);
+        saveAs(blob, `video-export.${format}`);
       };
       onAction('stop');
       mediaRecorder.stop();
@@ -277,7 +231,6 @@ VideoPaneFooter.propTypes = {
   isAnimating: T.bool,
   mediaRecorder: T.object,
   onAction: T.func,
-  downloadName: T.string,
   codec: T.string,
   format: T.string
 };
