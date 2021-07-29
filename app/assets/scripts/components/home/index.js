@@ -92,9 +92,12 @@ function Home() {
     mapStyles.find((v) => v.initial).id
   );
 
+
+  const [customMapUrl, setCustomMapUrl] = useState([])
   const [mediaRecorder, setMediaRecorder] = useState({});
   const [codec, setCodec] = useState('avc1.4d002a');
   const [format, setFormat] = useState('mp4');
+
 
   useEffect(() => {
     if (cameraPos.length < 2) return;
@@ -293,6 +296,8 @@ function Home() {
       case 'style.set':
         setMapStyleId(payload.styleId);
         break;
+      case 'customurl.set':
+        setCustomMapUrl(payload.url);
       case 'target.set':
         setIsSelectingHelperTarget(false);
         setHelperTarget(payload.point);
@@ -335,6 +340,7 @@ function Home() {
                 helperTarget={helperTarget}
                 settings={settings}
                 mapStyleId={mapStyleId}
+                customMapUrl={customMapUrl}
               />
             </ExploreCarto>
             <OptionsPanel
