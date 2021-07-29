@@ -92,6 +92,10 @@ function Home() {
     mapStyles.find((v) => v.initial).id
   );
 
+  const [mediaRecorder, setMediaRecorder] = useState({});
+  const [codec, setCodec] = useState('avc1.4d002a');
+  const [format, setFormat] = useState('mp4');
+
   useEffect(() => {
     if (cameraPos.length < 2) return;
 
@@ -270,6 +274,15 @@ function Home() {
           m.setFreeCameraOptions(camera);
           break;
         }
+        case 'video.set.mediarecorder':
+          setMediaRecorder(payload);
+          break;
+        case 'video.set.codec':
+          setCodec(payload);
+          break;
+        case 'video.set.format':
+          setFormat(payload);
+          break;
       }
     },
     [helperTarget, settings]
@@ -280,8 +293,6 @@ function Home() {
       case 'style.set':
         setMapStyleId(payload.styleId);
         break;
-    }
-    switch (action) {
       case 'target.set':
         setIsSelectingHelperTarget(false);
         setHelperTarget(payload.point);
@@ -337,8 +348,11 @@ function Home() {
               target={helperTarget}
               isSelectingTarget={isSelectingHelperTarget}
               cameraPositions={cameraPos}
-              map={mapboxMapRef}
               settings={settings}
+              mapboxMapRef={mapboxMapRef}
+              mediaRecorder={mediaRecorder}
+              codec={codec}
+              format={format}
             />
           </ExploreCanvas>
         </InpageBody>

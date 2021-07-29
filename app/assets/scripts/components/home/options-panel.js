@@ -11,6 +11,7 @@ import ShadowScrollbar from '../common/shadow-scrollbar';
 import Button from '../../styles/button/button';
 import { ExportPaneBody, ExportPaneFooter } from './export-pane';
 import { CreatePaneBody, CreatePaneFooter } from './create-pane';
+import { VideoPaneBody, VideoPaneFooter } from './video-pane';
 
 const PanelSelf = styled(Panel)`
   ${media.largeUp`
@@ -92,6 +93,10 @@ const tabs = [
   {
     id: 'export',
     label: 'Export'
+  },
+  {
+    id: 'video',
+    label: 'Video'
   }
 ];
 
@@ -104,7 +109,11 @@ function OptionsPanel(props) {
     isAnimating,
     target,
     isSelectingTarget,
-    onAction
+    onAction,
+    mapboxMapRef,
+    mediaRecorder,
+    format,
+    codec
   } = props;
 
   const [activeTab, setActiveTab] = useState('create');
@@ -168,6 +177,16 @@ function OptionsPanel(props) {
                 scenes={cameraPositions}
               />
             )}
+            {activeTab === 'video' && (
+              <VideoPaneBody
+                mediaRecorder={mediaRecorder}
+                mapboxMapRef={mapboxMapRef}
+                scenes={cameraPositions}
+                onAction={onAction}
+                codec={codec}
+                format={format}
+              />
+            )}
           </BodyScrollInner>
         </BodyScroll>
       }
@@ -178,8 +197,18 @@ function OptionsPanel(props) {
             onAction={onAction}
             isAnimating={isAnimating}
           />
-        ) : (
+        ) : activeTab === 'export' ? (
           <ExportPaneFooter scenes={cameraPositions} onAction={onAction} />
+        ) : (
+          <VideoPaneFooter
+            isAnimating={isAnimating}
+            scenes={cameraPositions}
+            onAction={onAction}
+            mapboxMapRef={mapboxMapRef}
+            mediaRecorder={mediaRecorder}
+            codec={codec}
+            format={format}
+          />
         )
       }
     />
@@ -194,7 +223,11 @@ OptionsPanel.propTypes = {
   onAction: T.func,
   onPanelChange: T.func,
   isAnimating: T.bool,
-  cameraPositions: T.array
+  cameraPositions: T.array,
+  mapboxMapRef: T.object,
+  mediaRecorder: T.object,
+  codec: T.string,
+  format: T.string
 };
 
 export default OptionsPanel;
