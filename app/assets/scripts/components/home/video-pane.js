@@ -115,8 +115,6 @@ export function VideoPaneBody(props) {
                 </FormHelper>
               </FormGroupBody>
             </FormGroup>
-          </VideoForm>
-          <VideoForm>
             <FormGroup>
               <FormGroupHeader>
                 <FormLabel htmlFor='size'>Video Size</FormLabel>
@@ -144,7 +142,7 @@ export function VideoPaneBody(props) {
         </PanelSection>
         <PanelSection>
           <PanelSectionTitle>Export Settings</PanelSectionTitle>
-          <VideoForm>
+          <Form>
             <FormGroup>
               <FormGroupHeader>
                 <FormLabel htmlFor='download-name'>Download Name</FormLabel>
@@ -166,7 +164,7 @@ export function VideoPaneBody(props) {
                 </FormHelper>
               </FormGroupBody>
             </FormGroup>
-          </VideoForm>
+          </Form>
           <VideoForm>
             <FormGroup>
               <FormGroupHeader>
@@ -191,8 +189,6 @@ export function VideoPaneBody(props) {
                 </FormHelper>
               </FormGroupBody>
             </FormGroup>
-          </VideoForm>
-          <VideoForm>
             <FormGroup>
               <FormGroupHeader>
                 <FormLabel htmlFor='codec'>Codec</FormLabel>
