@@ -110,7 +110,11 @@ function OptionsPanel(props) {
     target,
     isSelectingTarget,
     onAction,
-    mediaRecorder
+    mapboxMapRef,
+    mediaRecorder,
+    format,
+    codec,
+    downloadName
   } = props;
 
   const [activeTab, setActiveTab] = useState('create');
@@ -175,7 +179,15 @@ function OptionsPanel(props) {
               />
             )}
             {activeTab === 'video' && (
-              <VideoPaneBody mediaRecorder={mediaRecorder} scenes={cameraPositions}/>
+              <VideoPaneBody
+                mediaRecorder={mediaRecorder}
+                mapboxMapRef={mapboxMapRef}
+                scenes={cameraPositions}
+                onAction={onAction}
+                codec={codec}
+                format={format}
+                downloadName={downloadName}
+                />
             )
 
             }
@@ -195,7 +207,11 @@ function OptionsPanel(props) {
           isAnimating={isAnimating}
           scenes={cameraPositions}
           onAction={onAction}
+          mapboxMapRef={mapboxMapRef}
           mediaRecorder={mediaRecorder}
+          codec={codec}
+          format={format}
+          downloadName={downloadName}
         />
       }
     />
@@ -211,7 +227,11 @@ OptionsPanel.propTypes = {
   onPanelChange: T.func,
   isAnimating: T.bool,
   cameraPositions: T.array,
-  mediaRecorder: T.object
+  mapboxMapRef: T.object,
+  mediaRecorder: T.object,
+  downloadName: T.string,
+  codec: T.string,
+  format: T.string
 };
 
 export default OptionsPanel;

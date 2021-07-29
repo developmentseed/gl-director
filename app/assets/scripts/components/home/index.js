@@ -92,9 +92,10 @@ function Home() {
     mapStyles.find((v) => v.initial).id
   );
 
-  const [isLoaded, setMapLoaded] = useState(null)
-
-  const [mediaRecorder, setMediaRecorder] = useState(null)
+  const [mediaRecorder, setMediaRecorder] = useState({});
+  const [codec, setCodec] = useState('avc1.4d002a');
+  const [format, setFormat] = useState('mp4');
+  const [downloadName, setDownloadName] = useState('DirectorExport');
 
   useEffect(() => {
     if (cameraPos.length < 2) return;
@@ -274,6 +275,18 @@ function Home() {
           m.setFreeCameraOptions(camera);
           break;
         }
+        case 'video.set.mediarecorder':
+          setMediaRecorder(payload);
+          break;
+        case 'video.set.download':
+          setDownloadName(payload);
+          break;
+        case 'video.set.codec':
+          setCodec(payload);
+          break;
+        case 'video.set.format':
+          setFormat(payload);
+          break;
       }
     },
     [helperTarget, settings]
@@ -288,33 +301,8 @@ function Home() {
         setIsSelectingHelperTarget(false);
         setHelperTarget(payload.point);
         break;
-      case 'map.load':
-        setMapLoaded(true);
     }
   }, []);
-
-  useEffect(() => {
-    if (!isLoaded) return;
-    if (!mapboxMapRef.current) return;
-    // video export setup; move to video pane for option/settings control
-    const canvas = mapboxMapRef.current.getCanvas();
-    const video = document.querySelector("video");
-    const videoStream = canvas.captureStream(20);
-    const mediaRecorderTemp = new MediaRecorder(videoStream);
-    let chunks = [];
-    mediaRecorderTemp.ondataavailable = function(e) {
-      chunks.push(e.data);
-    };
-
-    mediaRecorderTemp.onstop = function(e) {
-      const blob = new Blob(chunks, { 'type' : 'video/mp4; codecs="avc1.4d002a"' });
-      chunks = [];
-      const videoURL = URL.createObjectURL(blob);
-      video.src = videoURL;
-      saveAs(blob, "Director.mp4");
-    };
-    setMediaRecorder(mediaRecorderTemp)
-  }, [isLoaded])
 
   const onExampleSelect = (ex) => {
     // Custom
@@ -351,7 +339,6 @@ function Home() {
                 helperTarget={helperTarget}
                 settings={settings}
                 mapStyleId={mapStyleId}
-                isLoaded={isLoaded}
               />
             </ExploreCarto>
             <OptionsPanel
@@ -365,8 +352,12 @@ function Home() {
               target={helperTarget}
               isSelectingTarget={isSelectingHelperTarget}
               cameraPositions={cameraPos}
-              mediaRecorder={mediaRecorder || {}}
               settings={settings}
+              mapboxMapRef={mapboxMapRef}
+              mediaRecorder={mediaRecorder}
+              codec={codec}
+              format={format}
+              downloadName={downloadName}
             />
           </ExploreCanvas>
         </InpageBody>
