@@ -39,24 +39,71 @@ function About() {
         <InpageBody>
           <PageConstrainer>
             <Prose>
-              <p>Mapbox GL Director is an interface to easily generate terrain flyovers for your app using Mapbox GL JS. Development is ongoing and you can subscribe for updates.</p>
-              <div id="mc_embed_signup">
-                <form action="https://developmentseed.us7.list-manage.com/subscribe/post?u=f67c6427e57e45d86760a37c5&amp;id=1228c93614" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                  <div id="mc_embed_signup_scroll">
+              <p>
+                Mapbox GL Director is an interface to easily generate terrain
+                flyovers for your app using Mapbox GL JS. Development is ongoing
+                and you can subscribe for updates.
+              </p>
+              <div id='mc_embed_signup'>
+                <form
+                  action='https://developmentseed.us7.list-manage.com/subscribe/post?u=f67c6427e57e45d86760a37c5&amp;id=1228c93614'
+                  method='post'
+                  id='mc-embedded-subscribe-form'
+                  name='mc-embedded-subscribe-form'
+                  className='validate'
+                  target='_blank'
+                  noValidate
+                >
+                  <div id='mc_embed_signup_scroll'>
                     <h2>Subscribe</h2>
-                      <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
-                      <div class="mc-field-group">
-                        <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span></label>
-                        <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" />
-                      </div>
-                  <div id="mce-responses" class="clear">
-                    <div class="response" id="mce-error-response" style={{display:"none"}}></div>
-                    <div class="response" id="mce-success-response" style={{display:"none"}}></div>
+                    <div className='indicates-required'>
+                      <span className='asterisk'>*</span> indicates required
+                    </div>
+                    <div className='mc-field-group'>
+                      <label htmlFor='mce-EMAIL'>
+                        Email Address <span className='asterisk'>*</span>
+                      </label>
+                      <input
+                        type='email'
+                        name='EMAIL'
+                        className='required email'
+                        id='mce-EMAIL'
+                      />
+                    </div>
+                    <div id='mce-responses' className='clear'>
+                      <div
+                        className='response'
+                        id='mce-error-response'
+                        style={{ display: 'none' }}
+                      />
+                      <div
+                        className='response'
+                        id='mce-success-response'
+                        style={{ display: 'none' }}
+                      />
+                    </div>
+                    <div
+                      style={{ position: 'absolute', left: '-5000px' }}
+                      aria-hidden='true'
+                    >
+                      <input
+                        type='text'
+                        name='b_f67c6427e57e45d86760a37c5_1228c93614'
+                        tabIndex='-1'
+                        value=''
+                      />
+                    </div>
+                    <div className='clear'>
+                      <input
+                        type='submit'
+                        value='Subscribe'
+                        name='subscribe'
+                        id='mc-embedded-subscribe'
+                        className='button'
+                      />
+                    </div>
                   </div>
-                  <div style={{position: "absolute", left: "-5000px"}} aria-hidden="true"><input type="text" name="b_f67c6427e57e45d86760a37c5_1228c93614" tabindex="-1" value="" /></div>
-                  <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button" /></div>
-                  </div>
-              </form>
+                </form>
               </div>
             </Prose>
           </PageConstrainer>

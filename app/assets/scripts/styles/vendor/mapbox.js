@@ -15,7 +15,9 @@ export default () => css`
 
   .mapboxgl-map {
     color: ${themeVal('type.base.color')};
-    font: ${themeVal('type.base.style')} ${themeVal('type.base.weight')} ${themeVal('type.base.size')} / ${themeVal('type.base.line')} ${themeVal('type.base.family')};
+    font: ${themeVal('type.base.style')} ${themeVal('type.base.weight')}
+      ${themeVal('type.base.size')} / ${themeVal('type.base.line')}
+      ${themeVal('type.base.family')};
 
     *:active,
     *:focus {
