@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';
 import mapboxgl from 'mapbox-gl';
-import { saveAs } from 'file-saver';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 import config from '../../config';
 import { glsp } from '../../styles/utils/theme-values';
@@ -78,6 +78,15 @@ const MbMap = React.forwardRef((props, ref) => {
 
     // Custom style selection control
     mbMap.addControl(mapStyleControl, 'top-left');
+
+    // Geocoder
+    mbMap.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        marker: false
+      })
+    );
 
     // Style attribution
     mbMap.addControl(new mapboxgl.AttributionControl({ compact: true }));
