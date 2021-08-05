@@ -275,4 +275,18 @@ export default () => css`
       text-decoration: none;
     }
   }
+
+
+  .mapboxgl-ctrl.mapboxgl-ctrl-geocoder::before {
+    content: '';
+  }
+
+  .mapboxgl-ctrl.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--input {
+    padding: 0.75rem;
+  }
+
+  .mapboxgl-ctrl-top-right {
+    top: -8px;
+    right: 30px;
+  }
 `;
