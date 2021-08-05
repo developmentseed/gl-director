@@ -100,10 +100,12 @@ function StyleControlDropdown(props) {
                 {style.label}
               </LayerSwitch>
               <input
-                onChange={event => onInputChange(event.target.value)}
-                style={{ display: (style.id == 'custom' ? 'inline-block' : 'none') }}
-                placeholder="Insert style.json here"
-                /> 
+                onChange={(event) => onInputChange(event.target.value)}
+                style={{
+                  display: style.id == 'custom' ? 'inline-block' : 'none'
+                }}
+                placeholder='Insert style URL here'
+              />
             </li>
           );
         })}

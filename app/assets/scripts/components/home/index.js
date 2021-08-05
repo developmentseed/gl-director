@@ -92,12 +92,10 @@ function Home() {
     mapStyles.find((v) => v.initial).id
   );
 
-
-  const [customMapUrl, setCustomMapUrl] = useState([])
+  const [customMapUrl, setCustomMapUrl] = useState([]);
   const [mediaRecorder, setMediaRecorder] = useState({});
   const [codec, setCodec] = useState('avc1.4d002a');
   const [format, setFormat] = useState('mp4');
-
 
   useEffect(() => {
     if (cameraPos.length < 2) return;

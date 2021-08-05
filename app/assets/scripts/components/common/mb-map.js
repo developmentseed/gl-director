@@ -236,9 +236,10 @@ const useMapStyle = (ref, mapStyleId, customMapUrl) => {
     const mbMap = ref.current;
 
     if (mbMap) {
-      const style = mapStyleId == 'custom'
-      ? { url: customMapUrl }
-      : mapStyles.find((v) => v.id === mapStyleId);
+      const style =
+        mapStyleId == 'custom'
+          ? { url: customMapUrl }
+          : mapStyles.find((v) => v.id === mapStyleId);
       mbMap.setStyle(style.url);
     }
   }, [ref, mapStyleId, customMapUrl]);

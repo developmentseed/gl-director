@@ -13,7 +13,7 @@ import Home from './components/home';
 import UhOh from './components/uhoh';
 import About from './components/about';
 
-import config from './config'
+import config from './config';
 
 // Root component. Used by the router.
 function Root() {

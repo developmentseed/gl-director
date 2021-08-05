@@ -218,7 +218,13 @@ function PageHeader() {
             </Link>
           </PageTitle>
           <PageSubtitle>
-            by <a href='https://developmentseed.org/' title='Visit Development Seed'>Development Seed</a>
+            by{' '}
+            <a
+              href='https://developmentseed.org/'
+              title='Visit Development Seed'
+            >
+              Development Seed
+            </a>
           </PageSubtitle>
         </PageHeadline>
 
