@@ -313,7 +313,7 @@ export function CreatePaneBody(props) {
                   onEditClick={() => onAction('camera.edit', { idx })}
                 />
                 {idx < scenes.length - 1 && (
-                  <Form>
+                  <Form onSubmit={(e) => e.preventDefault()}>
                     <FormGroup>
                       <FormGroupHeader>
                         <FormLabel htmlFor='transition-duration'>
