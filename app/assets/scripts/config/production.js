@@ -5,6 +5,6 @@ module.exports = {
     environment: 'production',
     appTitle: 'Mapbox GL Director',
     appDescription: 'Mapbox GL camera exploration tool',
-    mbToken: 'pk.eyJ1Ijoia25hYWppIiwiYSI6Il9zaDktSnMifQ.gQBedLe-gjrCq4LEXU3O9w'
+    mbToken: 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJjbGl4MXVpYm0wM3BkM2pwOXd5aTU5MGV6In0.0MyDUlaPYqfMPFQ254jBrg'
   }
 };
